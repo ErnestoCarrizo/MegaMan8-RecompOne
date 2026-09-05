@@ -5,7 +5,9 @@ param(
 
     [string]$CuePath = "disc\Mega Man 8 (USA).cue",
 
-    [switch]$SkipBuild
+    [switch]$SkipBuild,
+
+    [switch]$Quiet
 )
 
 Set-StrictMode -Version Latest
@@ -32,30 +34,32 @@ New-Item -ItemType Directory -Path $logsDirectory -Force | Out-Null
 $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
 $logPath = Join-Path $logsDirectory "run-$timestamp.log"
 
-Start-Transcript -Path $logPath -Force | Out-Null
+Write-Host "Registro de esta ejecución: $logPath"
+
+if (-not $SkipBuild) {
+    & $buildScript -Configuration $Configuration
+    if (-not $?) {
+        throw "No se pudo preparar el ejecutable."
+    }
+}
+
+Push-Location $projectRoot
 try {
-    Write-Host "Registro de esta ejecución: $logPath"
-
-    if (-not $SkipBuild) {
-        & $buildScript -Configuration $Configuration
-        if (-not $?) {
-            throw "No se pudo preparar el ejecutable."
-        }
+    Write-Host "Iniciando Mega Man 8 con: $resolvedCuePath"
+    if ($Quiet) {
+        & dotnet run --project $portProject -c $Configuration --no-build -- $resolvedCuePath *> $logPath
+    }
+    else {
+        & dotnet run --project $portProject -c $Configuration --no-build -- $resolvedCuePath 2>&1 |
+            Tee-Object -FilePath $logPath
     }
 
-    Push-Location $projectRoot
-    try {
-        Write-Host "Iniciando Mega Man 8 con: $resolvedCuePath"
-        & dotnet run --project $portProject -c $Configuration --no-build -- $resolvedCuePath
-        if ($LASTEXITCODE -ne 0) {
-            throw "El port finalizó con el código $LASTEXITCODE."
-        }
-    }
-    finally {
-        Pop-Location
+    $portExitCode = $LASTEXITCODE
+    if ($portExitCode -ne 0) {
+        throw "El port finalizó con el código $portExitCode."
     }
 }
 finally {
-    Stop-Transcript | Out-Null
+    Pop-Location
     Write-Host "Registro guardado en: $logPath"
 }

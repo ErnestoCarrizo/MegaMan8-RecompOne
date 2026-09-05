@@ -40,7 +40,7 @@ Para regenerar, compilar e iniciar el port en una sola operación:
 .\scripts\run-port.ps1
 ```
 
-`run-port.ps1` guarda automáticamente una transcripción completa en `logs/`. Para ejecutar un resultado ya compilado sin regenerarlo, se puede utilizar `run-port.ps1 -SkipBuild`.
+`run-port.ps1` guarda automáticamente la salida del juego en `logs/`. Para ejecutar un resultado ya compilado sin regenerarlo, se puede utilizar `run-port.ps1 -SkipBuild`. El modificador `-Quiet` envía la salida solamente al archivo, algo especialmente útil con el rastreo detallado de funciones.
 
 Los scripts resuelven sus rutas desde la raíz del repositorio, por lo que también pueden invocarse desde otra carpeta. Todos aceptan `-Configuration Debug` o `-Configuration Release`.
 
