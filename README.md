@@ -8,7 +8,7 @@ El repositorio contiene solamente la estructura, configuración y código propio
 
 La configuración inicial apunta a la edición estadounidense `SLUS-00453`. Las huellas de la copia utilizada están documentadas en `docs/disc-verification.md`.
 
-El mapa inicial contiene 1876 funciones candidatas del ejecutable principal. La salida generada compila y alcanza la inicialización de GPU, CD y sincronización vertical. Este mapa proviene de un barrido lineal y todavía debe validarse; los overlays del juego aún no están declarados.
+El mapa inicial contiene 1876 funciones candidatas del ejecutable principal. `VSync` ya fue identificada y sustituida por la implementación HLE de RecompOne; la salida generada compila y supera el timeout inicial de sincronización vertical. Este mapa proviene de un barrido lineal y todavía debe validarse; los overlays del juego aún no están declarados.
 
 ## Requisitos
 
