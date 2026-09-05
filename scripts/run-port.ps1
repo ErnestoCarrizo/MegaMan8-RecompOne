@@ -7,7 +7,11 @@ param(
 
     [switch]$SkipBuild,
 
-    [switch]$Quiet
+    [switch]$Quiet,
+
+    [switch]$BringupTrace,
+
+    [switch]$SdkLog
 )
 
 Set-StrictMode -Version Latest
@@ -46,11 +50,15 @@ if (-not $SkipBuild) {
 Push-Location $projectRoot
 try {
     Write-Host "Iniciando Mega Man 8 con: $resolvedCuePath"
+    $appArguments = @($resolvedCuePath)
+    if ($BringupTrace) { $appArguments += "--bringup-trace" }
+    if ($SdkLog) { $appArguments += "--sdk-log" }
+
     if ($Quiet) {
-        & dotnet run --project $portProject -c $Configuration --no-build -- $resolvedCuePath *> $logPath
+        & dotnet run --project $portProject -c $Configuration --no-build -- @appArguments *> $logPath
     }
     else {
-        & dotnet run --project $portProject -c $Configuration --no-build -- $resolvedCuePath 2>&1 |
+        & dotnet run --project $portProject -c $Configuration --no-build -- @appArguments 2>&1 |
             Tee-Object -FilePath $logPath
     }
 
