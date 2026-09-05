@@ -8,7 +8,9 @@ El repositorio contiene solamente la estructura, configuración y código propio
 
 La configuración inicial apunta a la edición estadounidense `SLUS-00453`. Las huellas de la copia utilizada están documentadas en `docs/disc-verification.md`.
 
-El mapa inicial contiene 1876 funciones candidatas del ejecutable principal. `VSync` ya fue identificada y sustituida por la implementación HLE de RecompOne; la salida generada compila y supera el timeout inicial de sincronización vertical. Este mapa proviene de un barrido lineal y todavía debe validarse; los overlays del juego aún no están declarados.
+Las direcciones de juego conocidas obtenidas durante el desarrollo del set de RetroAchievements están resumidas en `docs/reference-retroachievements-code-notes.md` y se usarán como guía para identificar datos y funciones.
+
+El mapa contiene 1875 funciones candidatas dentro del límite estático verificado `0x93000`. `VSync` ya fue identificada y sustituida por la implementación HLE de RecompOne; la salida generada compila y supera el timeout inicial de sincronización vertical. Este mapa proviene de un barrido lineal y todavía debe validarse; los overlays del juego aún no están declarados.
 
 ## Requisitos
 

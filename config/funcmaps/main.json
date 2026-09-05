@@ -9374,11 +9374,6 @@
       "address": "0x80151724",
       "name": "func_80151724",
       "size": 8
-    },
-    {
-      "address": "0x8017D5D4",
-      "name": "func_8017D5D4",
-      "size": 350764
     }
   ],
   "labels": []
