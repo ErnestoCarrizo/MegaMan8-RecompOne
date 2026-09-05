@@ -1107,7 +1107,7 @@
     },
     {
       "address": "0x800CEE98",
-      "name": "CdReady",
+      "name": "CdReady_MM8",
       "size": 32
     },
     {
@@ -1122,7 +1122,7 @@
     },
     {
       "address": "0x800CEEE8",
-      "name": "CdControl",
+      "name": "CdControl_MM8",
       "size": 312
     },
     {
@@ -1132,7 +1132,7 @@
     },
     {
       "address": "0x800CF14C",
-      "name": "func_800CF14C",
+      "name": "CdControlB",
       "size": 324
     },
     {
@@ -1142,7 +1142,7 @@
     },
     {
       "address": "0x800CF2B4",
-      "name": "func_800CF2B4",
+      "name": "CdGetSector",
       "size": 36
     },
     {
@@ -2602,7 +2602,7 @@
     },
     {
       "address": "0x800FC1E0",
-      "name": "func_800FC1E0",
+      "name": "PollCdLoader_MM8",
       "size": 88
     },
     {

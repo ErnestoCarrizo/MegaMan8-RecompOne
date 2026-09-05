@@ -9,5 +9,21 @@
   "addressComments": true,
   "disasmComments": true,
   "overlays": [],
-  "patches": []
+  "patches": [
+    {
+      "overlay": "main",
+      "address": "0x800CEE98",
+      "target": "MegaMan8Recomp.Patches.MegaMan8CdPatches.CdReady"
+    },
+    {
+      "overlay": "main",
+      "address": "0x800CEEE8",
+      "target": "MegaMan8Recomp.Patches.MegaMan8CdPatches.CdControl"
+    },
+    {
+      "overlay": "main",
+      "address": "0x800FC1E0",
+      "target": "MegaMan8Recomp.Patches.MegaMan8CdPatches.PollCdLoader"
+    }
+  ]
 }
