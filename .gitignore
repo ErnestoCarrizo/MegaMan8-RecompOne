@@ -1,0 +1,40 @@
+# Material original del juego (no distribuir)
+disc/
+*.cue
+*.bin
+*.iso
+*.chd
+*.ecm
+
+# Código derivado generado por RecompOne
+generated/
+Recompiled/
+
+# Resultados de compilación de .NET
+bin/
+obj/
+out/
+artifacts/
+TestResults/
+*.dll
+*.exe
+*.pdb
+
+# Estado local del runtime
+*.sav
+*.mcr
+carda.sav
+cardb.sav
+logs/
+
+# Configuración local de editores y sistema operativo
+.vs/
+.idea/
+*.user
+*.suo
+.DS_Store
+Thumbs.db
+
+# Paquetes y cachés locales
+packages/
+*.nupkg
