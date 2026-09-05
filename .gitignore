@@ -25,7 +25,11 @@ TestResults/
 *.mcr
 carda.sav
 cardb.sav
+settings.json
+interface.ini
 logs/
+mods/
+packs/
 
 # Configuración local de editores y sistema operativo
 .vs/

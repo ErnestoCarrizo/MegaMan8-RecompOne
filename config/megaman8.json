@@ -1,0 +1,13 @@
+{
+  "game": {
+    "id": "SLUS-00453",
+    "name": "MegaMan8",
+    "output": "../generated"
+  },
+  "cue": "../disc/Mega Man 8 (USA).cue",
+  "funcMap": "funcmaps/main.json",
+  "addressComments": true,
+  "disasmComments": true,
+  "overlays": [],
+  "patches": []
+}
