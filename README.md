@@ -30,15 +30,19 @@ dotnet build .\RecompOne\RecompOne.sln -c Release
 Con una copia compatible del disco disponible en `disc/`:
 
 ```powershell
-dotnet run --project .\RecompOne\RecompOne.Recompiler -c Release --no-build -- .\config\megaman8.json
-dotnet build .\MegaMan8Recomp.csproj -c Release
+.\scripts\recompile.ps1
+.\scripts\build-port.ps1 -SkipRecompile
 ```
 
-Para iniciar la compilación de prueba:
+Para regenerar, compilar e iniciar el port en una sola operación:
 
 ```powershell
-dotnet run --project .\MegaMan8Recomp.csproj -c Release --no-build -- ".\disc\Mega Man 8 (USA).cue"
+.\scripts\run-port.ps1
 ```
+
+`run-port.ps1` guarda automáticamente una transcripción completa en `logs/`. Para ejecutar un resultado ya compilado sin regenerarlo, se puede utilizar `run-port.ps1 -SkipBuild`.
+
+Los scripts resuelven sus rutas desde la raíz del repositorio, por lo que también pueden invocarse desde otra carpeta. Todos aceptan `-Configuration Debug` o `-Configuration Release`.
 
 ## Estructura prevista
 
