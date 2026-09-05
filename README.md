@@ -10,7 +10,7 @@ La configuración inicial apunta a la edición estadounidense `SLUS-00453`. Las 
 
 Las direcciones de juego conocidas obtenidas durante el desarrollo del set de RetroAchievements están resumidas en `docs/reference-retroachievements-code-notes.md` y se usarán como guía para identificar datos y funciones.
 
-El mapa contiene 1875 funciones candidatas dentro del límite estático verificado `0x93000`. `VSync` ya fue identificada y sustituida por la implementación HLE de RecompOne; la salida generada compila y supera el timeout inicial de sincronización vertical. El siguiente bloqueo está localizado en la lectura asíncrona del primer recurso del CD: llega el primer sector, pero no los siguientes. El diagnóstico está detallado en `docs/bringup-step-5-runtime-monitor.md`. Este mapa proviene de un barrido lineal y todavía debe validarse; los overlays del juego aún no están declarados.
+El mapa contiene 1875 funciones candidatas dentro del límite estático verificado `0x93000`. `VSync` y cinco funciones de `libcd` ya fueron identificadas y sustituidas por implementaciones HLE de RecompOne, para un total de seis sustituciones. La salida generada compila y supera el timeout inicial de sincronización vertical. El experimento de CD confirmó una incompatibilidad entre el sondeo asíncrono de Mega Man 8 y el bombeo de sectores del runtime; está detallada en `docs/bringup-step-6-libcd-hle.md`. Este mapa proviene de un barrido lineal y todavía debe validarse; los overlays del juego aún no están declarados.
 
 ## Requisitos
 

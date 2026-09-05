@@ -1102,27 +1102,27 @@
     },
     {
       "address": "0x800CEE78",
-      "name": "func_800CEE78",
+      "name": "CdSync",
       "size": 32
     },
     {
       "address": "0x800CEE98",
-      "name": "func_800CEE98",
+      "name": "CdReady",
       "size": 32
     },
     {
       "address": "0x800CEEB8",
-      "name": "func_800CEEB8",
+      "name": "CdSyncCallback",
       "size": 24
     },
     {
       "address": "0x800CEED0",
-      "name": "func_800CEED0",
+      "name": "CdReadyCallback",
       "size": 24
     },
     {
       "address": "0x800CEEE8",
-      "name": "func_800CEEE8",
+      "name": "CdControl",
       "size": 312
     },
     {
