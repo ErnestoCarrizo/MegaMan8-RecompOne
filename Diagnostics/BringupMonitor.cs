@@ -11,10 +11,12 @@ internal static class BringupMonitor
     [
         new("bossId", 0x0015B1B8u, 1),
         new("bossLife", 0x0015B1BBu, 1),
+        new("currentTaskSlot", 0x001FC100u, 4),
         new("cdSectorsDone", 0x00155518u, 4),
         new("cdSectorsExpected", 0x0015551Cu, 4),
         new("cdStreamFlags", 0x0015552Bu, 1),
         new("playerState", 0x0015E23Du, 1),
+        new("resetChordFrames", 0x0015E238u, 4),
         new("playerX", 0x0015E24Au, 2),
         new("playerY", 0x0015E24Eu, 2),
         new("playerLife", 0x0015E283u, 1),
@@ -25,6 +27,12 @@ internal static class BringupMonitor
         new("level", 0x001C336Eu, 1),
         new("lives", 0x001C3370u, 1),
         new("checkpointHalf", 0x001C3374u, 1),
+        new("sceneIndex", 0x001CF840u, 1),
+        new("sceneSubstate", 0x001CF844u, 1),
+        new("task0State", 0x001FC000u, 2),
+        new("task1State", 0x001FC050u, 2),
+        new("task2State", 0x001FC0A0u, 2),
+        new("task3State", 0x001FC0F0u, 2),
         new("sceneState", 0x001D28F8u, 4)
     ];
 

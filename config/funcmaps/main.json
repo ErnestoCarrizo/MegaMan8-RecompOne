@@ -877,17 +877,17 @@
     },
     {
       "address": "0x800CDE68",
-      "name": "func_800CDE68",
+      "name": "PadInit",
       "size": 80
     },
     {
       "address": "0x800CDEB8",
-      "name": "func_800CDEB8",
+      "name": "PadRead",
       "size": 48
     },
     {
       "address": "0x800CDEE8",
-      "name": "func_800CDEE8",
+      "name": "PadStop",
       "size": 32
     },
     {
@@ -902,7 +902,7 @@
     },
     {
       "address": "0x800CE0EC",
-      "name": "func_800CE0EC",
+      "name": "ResetCallback",
       "size": 48
     },
     {
@@ -917,7 +917,7 @@
     },
     {
       "address": "0x800CE17C",
-      "name": "func_800CE17C",
+      "name": "VSyncCallback",
       "size": 52
     },
     {
@@ -1342,27 +1342,27 @@
     },
     {
       "address": "0x800D2368",
-      "name": "func_800D2368",
+      "name": "SetDefDrawEnv",
       "size": 208
     },
     {
       "address": "0x800D2438",
-      "name": "func_800D2438",
+      "name": "SetDefDispEnv",
       "size": 60
     },
     {
       "address": "0x800D2474",
-      "name": "func_800D2474",
+      "name": "SetDumpFnt",
       "size": 64
     },
     {
       "address": "0x800D24B4",
-      "name": "func_800D24B4",
+      "name": "FntLoad",
       "size": 164
     },
     {
       "address": "0x800D2558",
-      "name": "func_800D2558",
+      "name": "FntOpen",
       "size": 696
     },
     {
@@ -1437,7 +1437,7 @@
     },
     {
       "address": "0x800D3240",
-      "name": "func_800D3240",
+      "name": "SetPolyF3",
       "size": 20
     },
     {
@@ -1577,22 +1577,22 @@
     },
     {
       "address": "0x800D37C0",
-      "name": "func_800D37C0",
+      "name": "ResetGraph",
       "size": 344
     },
     {
       "address": "0x800D3918",
-      "name": "func_800D3918",
+      "name": "SetGraphReverse",
       "size": 276
     },
     {
       "address": "0x800D3A2C",
-      "name": "func_800D3A2C",
+      "name": "SetGraphDebug",
       "size": 108
     },
     {
       "address": "0x800D3A98",
-      "name": "func_800D3A98",
+      "name": "SetGraphQueue",
       "size": 172
     },
     {
@@ -1607,17 +1607,17 @@
     },
     {
       "address": "0x800D3B64",
-      "name": "func_800D3B64",
+      "name": "DrawSyncCallback",
       "size": 92
     },
     {
       "address": "0x800D3BC0",
-      "name": "func_800D3BC0",
+      "name": "SetDispMask",
       "size": 156
     },
     {
       "address": "0x800D3C5C",
-      "name": "func_800D3C5C",
+      "name": "DrawSync",
       "size": 108
     },
     {
@@ -1627,32 +1627,32 @@
     },
     {
       "address": "0x800D3DF0",
-      "name": "func_800D3DF0",
+      "name": "ClearImage",
       "size": 148
     },
     {
       "address": "0x800D3E84",
-      "name": "func_800D3E84",
+      "name": "LoadImage",
       "size": 100
     },
     {
       "address": "0x800D3EE8",
-      "name": "func_800D3EE8",
+      "name": "StoreImage",
       "size": 100
     },
     {
       "address": "0x800D3F4C",
-      "name": "func_800D3F4C",
+      "name": "MoveImage",
       "size": 196
     },
     {
       "address": "0x800D4010",
-      "name": "func_800D4010",
+      "name": "ClearOTag",
       "size": 184
     },
     {
       "address": "0x800D40C8",
-      "name": "func_800D40C8",
+      "name": "ClearOTagR",
       "size": 152
     },
     {
@@ -1662,17 +1662,17 @@
     },
     {
       "address": "0x800D41C0",
-      "name": "func_800D41C0",
+      "name": "DrawOTag",
       "size": 116
     },
     {
       "address": "0x800D4234",
-      "name": "func_800D4234",
+      "name": "PutDrawEnv",
       "size": 196
     },
     {
       "address": "0x800D42F8",
-      "name": "func_800D42F8",
+      "name": "DrawOTagEnv",
       "size": 220
     },
     {
@@ -1682,7 +1682,7 @@
     },
     {
       "address": "0x800D440C",
-      "name": "func_800D440C",
+      "name": "PutDispEnv",
       "size": 1200
     },
     {
@@ -1972,17 +1972,17 @@
     },
     {
       "address": "0x800D66B4",
-      "name": "func_800D66B4",
+      "name": "OpenTh",
       "size": 12
     },
     {
       "address": "0x800D66C4",
-      "name": "func_800D66C4",
+      "name": "CloseTh",
       "size": 12
     },
     {
       "address": "0x800D66D4",
-      "name": "func_800D66D4",
+      "name": "ChangeTh",
       "size": 12
     },
     {
@@ -2017,12 +2017,12 @@
     },
     {
       "address": "0x800D6744",
-      "name": "func_800D6744",
+      "name": "EnterCriticalSection",
       "size": 16
     },
     {
       "address": "0x800D6754",
-      "name": "func_800D6754",
+      "name": "ExitCriticalSection",
       "size": 16
     },
     {
@@ -2097,7 +2097,7 @@
     },
     {
       "address": "0x800D696C",
-      "name": "func_800D696C",
+      "name": "InitGeom",
       "size": 128
     },
     {
@@ -2302,22 +2302,22 @@
     },
     {
       "address": "0x800F7B8C",
-      "name": "func_800F7B8C",
+      "name": "BootTask_MM8",
       "size": 224
     },
     {
       "address": "0x800F7C6C",
-      "name": "func_800F7C6C",
+      "name": "RunTaskScheduler_MM8",
       "size": 412
     },
     {
       "address": "0x800F7E08",
-      "name": "func_800F7E08",
+      "name": "ConfigureTaskSlot_MM8",
       "size": 196
     },
     {
       "address": "0x800F7ECC",
-      "name": "func_800F7ECC",
+      "name": "SleepCurrentTask_MM8",
       "size": 52
     },
     {
@@ -2327,27 +2327,27 @@
     },
     {
       "address": "0x800F7F58",
-      "name": "func_800F7F58",
+      "name": "ResetTaskSlot_MM8",
       "size": 108
     },
     {
       "address": "0x800F7FC4",
-      "name": "func_800F7FC4",
+      "name": "ResetAllTaskSlots_MM8",
       "size": 60
     },
     {
       "address": "0x800F8000",
-      "name": "func_800F8000",
+      "name": "ReplaceCurrentTask_MM8",
       "size": 108
     },
     {
       "address": "0x800F806C",
-      "name": "func_800F806C",
+      "name": "InitializeGameSystems_MM8",
       "size": 736
     },
     {
       "address": "0x800F834C",
-      "name": "func_800F834C",
+      "name": "RestartBootTask_MM8",
       "size": 96
     },
     {
@@ -2362,12 +2362,12 @@
     },
     {
       "address": "0x800F84E8",
-      "name": "func_800F84E8",
+      "name": "FrameVSyncCallback_MM8",
       "size": 448
     },
     {
       "address": "0x800F86A8",
-      "name": "func_800F86A8",
+      "name": "GpuDrawSyncCallback_MM8",
       "size": 40
     },
     {
@@ -2377,7 +2377,7 @@
     },
     {
       "address": "0x800F8864",
-      "name": "func_800F8864",
+      "name": "UpdateResetChord_MM8",
       "size": 152
     },
     {
@@ -2532,7 +2532,7 @@
     },
     {
       "address": "0x800FB724",
-      "name": "func_800FB724",
+      "name": "InitializeCdDrive_MM8",
       "size": 128
     },
     {
@@ -2707,7 +2707,7 @@
     },
     {
       "address": "0x800FD124",
-      "name": "func_800FD124",
+      "name": "LoadBootResources_MM8",
       "size": 284
     },
     {
@@ -2807,7 +2807,7 @@
     },
     {
       "address": "0x800FE0C0",
-      "name": "func_800FE0C0",
+      "name": "InitializeMemoryCardEvents_MM8",
       "size": 400
     },
     {
@@ -2867,12 +2867,12 @@
     },
     {
       "address": "0x800FEA40",
-      "name": "func_800FEA40",
+      "name": "DispatchSceneTask_MM8",
       "size": 208
     },
     {
       "address": "0x800FEB10",
-      "name": "func_800FEB10",
+      "name": "EnterPrimaryScene_MM8",
       "size": 52
     },
     {
