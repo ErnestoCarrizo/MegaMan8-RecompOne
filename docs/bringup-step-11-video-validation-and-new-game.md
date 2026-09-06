@@ -81,6 +81,10 @@ actualizaciones del juego y sólo entonces cargó `title`. La pista contiene
 fotogramas numerados hasta 1.343, por lo que terminar en 1.341 coincide con el
 límite de la tabla original y ya no con el temporizador adelantado.
 
+Una segunda ejecución con capturas confirmó además el fundido del logo: entre
+las presentaciones 240 y 360 el fondo progresa de gris oscuro a gris claro antes
+de cambiar a la apertura, en lugar de desaparecer abruptamente.
+
 No se fuerza permanentemente el modo gráfico. En la prueba, las capturas pasaron a `rgb24=False` al cargar el título y volvieron a `rgb24=True` cuando comenzó la cinemática de la partida nueva.
 
 ## Piloto de entrada automática
