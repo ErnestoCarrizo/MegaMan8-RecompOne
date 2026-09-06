@@ -12,6 +12,12 @@ $ErrorActionPreference = "Stop"
 $projectRoot = [System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".."))
 $portProject = Join-Path $projectRoot "MegaMan8Recomp.csproj"
 $recompileScript = Join-Path $PSScriptRoot "recompile.ps1"
+$runtimePatchScript = Join-Path $PSScriptRoot "apply-runtime-patches.ps1"
+
+& $runtimePatchScript
+if (-not $?) {
+    throw "No se pudieron preparar los parches del runtime."
+}
 
 if (-not $SkipRecompile) {
     & $recompileScript -Configuration $Configuration

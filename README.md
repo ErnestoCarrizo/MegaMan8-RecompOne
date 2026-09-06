@@ -36,6 +36,11 @@ Con una copia compatible del disco disponible en `disc/`:
 .\scripts\build-port.ps1 -SkipRecompile
 ```
 
+`build-port.ps1` aplica de forma idempotente los ajustes de compatibilidad
+enumerados en `runtime-patches/` sobre el checkout local de RecompOne. Actualmente
+se corrige la activación del reloj STR para impedir que las películas se
+reproduzcan casi al doble de velocidad.
+
 Para regenerar, compilar e iniciar el port en una sola operación:
 
 ```powershell
@@ -61,6 +66,7 @@ Los scripts resuelven sus rutas desde la raíz del repositorio, por lo que tambi
 - `config/`: configuración del recompilador.
 - `config/funcmaps/`: direcciones y nombres de funciones identificadas.
 - `patches/`: correcciones y adaptaciones escritas en C#.
+- `runtime-patches/`: ajustes reproducibles aplicados al submódulo antes de compilar.
 - `RecompOne/`: versión fijada del recompilador y runtime como submódulo.
 - `disc/`: imagen local del juego; está excluida de Git.
 - `generated/`: código producido por el recompilador; está excluido de Git.

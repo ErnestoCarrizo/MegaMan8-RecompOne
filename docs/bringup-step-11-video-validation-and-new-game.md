@@ -46,6 +46,23 @@ pulsados. La pista contiene fotogramas numerados hasta 1.343, por lo que la sali
 en 1.341 y la carga inmediata de `title` son una decisión del juego original, no
 un salto introducido por la recompilación.
 
+Esa primera medición también descubrió un problema temporal independiente: el
+logo y la apertura llegaban al título en aproximadamente 61 segundos, mientras
+que la referencia tarda alrededor de 1 minuto y 42 segundos. `LibCdStream`
+esperaba tener dos cuadros simultáneos en su cola antes de activar el reloj. Mega
+Man 8 consume el primero antes de que el segundo sea producido, de modo que la
+profundidad de la cola nunca alcanzaba dos y el flujo avanzaba a la velocidad de
+decodificación del equipo.
+
+El parche `runtime-patches/0001-fix-str-stream-priming.patch` cuenta cuadros
+producidos aunque el consumidor ya los haya retirado. Al segundo cuadro activa
+la temporización de sectores. La pista contiene 14.587 sectores entre ambas
+películas; a 150 sectores por segundo representan unos 97,25 segundos de flujo,
+más las transiciones. La prueba posterior mantuvo la apertura activa después de
+los 50 segundos y llegó al título alrededor de 1 minuto y 37 segundos, eliminando
+la reproducción cercana a 2×. El script de compilación aplica este parche de forma
+automática e idempotente sobre el submódulo.
+
 No se fuerza permanentemente el modo gráfico. En la prueba, las capturas pasaron a `rgb24=False` al cargar el título y volvieron a `rgb24=True` cuando comenzó la cinemática de la partida nueva.
 
 ## Piloto de entrada automática

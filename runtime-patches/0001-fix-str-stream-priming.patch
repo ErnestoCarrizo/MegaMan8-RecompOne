@@ -1,0 +1,43 @@
+diff --git a/RecompOne.Runtime/sdk/LibCdStream.cs b/RecompOne.Runtime/sdk/LibCdStream.cs
+index 6d885c6..72dd735 100644
+--- a/RecompOne.Runtime/sdk/LibCdStream.cs
++++ b/RecompOne.Runtime/sdk/LibCdStream.cs
+@@ -24,6 +24,7 @@ public static class LibCdStream
+     private static readonly Stopwatch _clock = new();
+ 
+     private static int _writeIdx;
++    private static int _producedFrames;
+     private static bool _primed;
+     private static bool[] _busy = Array.Empty<bool>();
+     private static readonly Queue<(int start, int n)> _ready = new();
+@@ -165,6 +166,7 @@ public static class LibCdStream
+             _streamLba = -1;
+             _streamStartLba = 0;
+             _writeIdx = 0;
++            _producedFrames = 0;
+             _prevStart = -1;
+             _prevN = 0;
+             _busy = Array.Empty<bool>();
+@@ -177,6 +179,7 @@ public static class LibCdStream
+     {
+         _primed = false;
+         _writeIdx = 0;
++        _producedFrames = 0;
+         _prevStart = -1;
+         _prevN = 0;
+         _ready.Clear();
+@@ -290,8 +293,13 @@ public static class LibCdStream
+                 for (var i = 0; i < n; i++) _busy[start + i] = true;
+                 _ready.Enqueue((start, n));
+                 _writeIdx = start + n;
++                _producedFrames++;
+ 
+-                if (!_primed && _ready.Count >= PrimeFrames)
++                // The consumer can dequeue the first frame before the producer
++                // finishes the second one. Queue depth then stays at one and
++                // the stream clock would never start. Prime from the number of
++                // frames produced instead of the number currently queued.
++                if (!_primed && _producedFrames >= PrimeFrames)
+                 {
+                     _primed = true;
+                     _streamStartLba = _streamLba;
