@@ -10,7 +10,7 @@ La configuración inicial apunta a la edición estadounidense `SLUS-00453`. Las 
 
 Las direcciones de juego conocidas obtenidas durante el desarrollo del set de RetroAchievements están resumidas en `docs/reference-retroachievements-code-notes.md` y se usarán como guía para identificar datos y funciones.
 
-El mapa principal contiene 1875 funciones candidatas dentro del límite estático verificado `0x93000`. Se identificaron `VSync`, siete entradas de `libcd`, las ocho entradas de streaming STR, la biblioteca gráfica principal, rutinas de control, el planificador de cuatro tareas y el dispatcher inicial de escenas. RecompOne aplica 21 sustituciones HLE automáticas y siete parches locales. El adaptador de tareas conserva las continuaciones cooperativas del juego y los adaptadores de CD respetan su cola acotada de sectores. El port alcanza el título, ejecuta dos demostraciones completas, vuelve al título entre ambas y reconoce una tercera demostración. Las dos películas del arranque ya recorren lectura STR, MDEC, DMA de salida y carga a VRAM. Se declararon el overlay del título y tres overlays de demo comprobados byte por byte contra la copia legal. El estado del vídeo se detalla en `docs/bringup-step-10-str-video-hle.md`.
+El mapa principal contiene 1875 funciones candidatas dentro del límite estático verificado `0x93000`. Se identificaron `VSync`, siete entradas de `libcd`, las ocho entradas de streaming STR, la biblioteca gráfica principal, rutinas de control, el planificador de cuatro tareas y el dispatcher inicial de escenas. RecompOne aplica 21 sustituciones HLE automáticas y adaptaciones locales para el CD, las tareas cooperativas y la transición gráfica. El port alcanza el título, ejecuta demostraciones completas y también inicia la ruta de una partida nueva después de su cinemática. Las películas STR del arranque y de la partida fueron comprobadas visualmente mediante capturas de VRAM. Se declararon el overlay del título y tres overlays usados por las demos; el primero también se reutiliza en la ruta de partida. El estado más reciente se detalla en `docs/bringup-step-11-video-validation-and-new-game.md`.
 
 ## Requisitos
 
@@ -51,6 +51,8 @@ Para observar el avance por cuadro, los llamadores de `VSync`, variables conocid
 ```
 
 `-SdkLog` añade el registro detallado de llamadas SDK y del controlador de CD. Ambos diagnósticos están desactivados durante una ejecución normal.
+
+`-VideoLog` registra MDEC y sus transferencias DMA. `-VideoSnapshots` guarda cuadros de las películas en `logs/video-snapshots/`; estas capturas de la sombra de VRAM no incluyen los sprites rasterizados directamente por el backend acelerado. `-AutoProgress` ejecuta una secuencia de entrada de diagnóstico para atravesar el título e iniciar una partida nueva.
 
 Los scripts resuelven sus rutas desde la raíz del repositorio, por lo que también pueden invocarse desde otra carpeta. Todos aceptan `-Configuration Debug` o `-Configuration Release`.
 

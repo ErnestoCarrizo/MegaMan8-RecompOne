@@ -13,7 +13,11 @@ param(
 
     [switch]$SdkLog,
 
-    [switch]$VideoLog
+    [switch]$VideoLog,
+
+    [switch]$VideoSnapshots,
+
+    [switch]$AutoProgress
 )
 
 Set-StrictMode -Version Latest
@@ -56,6 +60,8 @@ try {
     if ($BringupTrace) { $appArguments += "--bringup-trace" }
     if ($SdkLog) { $appArguments += "--sdk-log" }
     if ($VideoLog) { $appArguments += "--video-log" }
+    if ($VideoSnapshots) { $appArguments += "--video-snapshots" }
+    if ($AutoProgress) { $appArguments += "--auto-progress" }
 
     if ($Quiet) {
         & dotnet run --project $portProject -c $Configuration --no-build -- @appArguments *> $logPath
