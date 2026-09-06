@@ -1,0 +1,15 @@
+diff --git a/RecompOne.Runtime/Runtime.cs b/RecompOne.Runtime/Runtime.cs
+index 42f3c7e..250eb62 100644
+--- a/RecompOne.Runtime/Runtime.cs
++++ b/RecompOne.Runtime/Runtime.cs
+@@ -216,7 +216,9 @@ public static class Runtime
+             Sdk.LibPad.Refresh(Mem);
+         } //is this correct?
+ 
+-        Interrupts.Raise(0);
++        // VBlank is raised by Interrupts' 60 Hz clock and delivered from the
++        // generated code's polling points. Raising it again here gives games
++        // such as Mega Man 8 two VSync callbacks for one displayed frame.
+     }
+ 
+     public static void DispatchIrq(int irq)

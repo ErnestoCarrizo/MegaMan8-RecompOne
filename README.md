@@ -38,8 +38,8 @@ Con una copia compatible del disco disponible en `disc/`:
 
 `build-port.ps1` aplica de forma idempotente los ajustes de compatibilidad
 enumerados en `runtime-patches/` sobre el checkout local de RecompOne. Actualmente
-se corrige la activación del reloj STR para impedir que las películas se
-reproduzcan casi al doble de velocidad.
+se corrigen la activación del reloj STR y la entrega duplicada de VBlank; ambos
+ajustes son necesarios para que las películas respeten su duración original.
 
 Para regenerar, compilar e iniciar el port en una sola operación:
 

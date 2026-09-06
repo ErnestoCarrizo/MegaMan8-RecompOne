@@ -39,29 +39,47 @@ temporalmente la presentación HLE para que la ventana lea directamente la VRAM 
 CPU. Al regresar a RGB15 reactiva el backend acelerado. Con este cambio se ven
 correctamente tanto el logo de Capcom como la película de apertura.
 
-Una ejecución sin entrada midió 311 sincronizaciones para la primera película y
-2.841 para la segunda. El reproductor alcanzó el límite de 1.341 fotogramas que
-la tabla original asigna a la apertura; no hubo botones retenidos ni recién
-pulsados. La pista contiene fotogramas numerados hasta 1.343, por lo que la salida
-en 1.341 y la carga inmediata de `title` son una decisión del juego original, no
-un salto introducido por la recompilación.
-
-Esa primera medición también descubrió un problema temporal independiente: el
-logo y la apertura llegaban al título en aproximadamente 61 segundos, mientras
-que la referencia tarda alrededor de 1 minuto y 42 segundos. `LibCdStream`
-esperaba tener dos cuadros simultáneos en su cola antes de activar el reloj. Mega
-Man 8 consume el primero antes de que el segundo sea producido, de modo que la
-profundidad de la cola nunca alcanzaba dos y el flujo avanzaba a la velocidad de
+La primera medición temporal descubrió que el logo y la apertura llegaban al
+título en aproximadamente 61 segundos, mientras que la referencia completa
+tarda alrededor de 1 minuto y 42 segundos. `LibCdStream` esperaba tener dos
+cuadros simultáneos en su cola antes de activar el reloj. Mega Man 8 consume el
+primero antes de que el segundo sea producido, de modo que la profundidad de la
+cola nunca alcanzaba dos y el flujo podía avanzar a la velocidad de
 decodificación del equipo.
 
 El parche `runtime-patches/0001-fix-str-stream-priming.patch` cuenta cuadros
 producidos aunque el consumidor ya los haya retirado. Al segundo cuadro activa
 la temporización de sectores. La pista contiene 14.587 sectores entre ambas
 películas; a 150 sectores por segundo representan unos 97,25 segundos de flujo,
-más las transiciones. La prueba posterior mantuvo la apertura activa después de
-los 50 segundos y llegó al título alrededor de 1 minuto y 37 segundos, eliminando
-la reproducción cercana a 2×. El script de compilación aplica este parche de forma
+más las transiciones. El script de compilación aplica este parche de forma
 automática e idempotente sobre el submódulo.
+
+La reproducción todavía terminaba antes de tiempo después de ese arreglo: la
+apertura se cerraba en el cuadro STR 712, unos 47,40 segundos después de empezar.
+La instrumentación comparó el evento de presentación del host con el contador
+del callback `FrameVSyncCallback_MM8` en `0x0016D298`:
+
+| Secuencia | VSync del host | VSync contados por el juego |
+| --- | ---: | ---: |
+| Logo de Capcom | 321 | 638 |
+| Apertura | 2.820 | 5.548 |
+
+El reproductor calcula su límite como `(fotogramas_objetivo + 45) * 4`. Para la
+apertura, `(1.341 + 45) * 4 = 5.544`; el contador duplicado llegaba a 5.548 justo
+cuando sólo se había mostrado el cuadro 712. Esto explica tanto el corte abrupto
+como la falta de tiempo para completar el fundido del logo.
+
+La causa estaba en dos fuentes para la misma interrupción: el reloj interno de
+`Interrupts` ya genera VBlank a 60 Hz y `Runtime.PresentFrame()` añadía otro
+`Interrupts.Raise(0)` manual. El parche
+`runtime-patches/0002-avoid-duplicate-vblank.patch` elimina esa segunda fuente.
+
+Después del cambio, una ejecución sin entrada produjo 113 cuadros para el logo
+en 7,42 segundos y los 1.341 cuadros previstos para la apertura en 89,38
+segundos. La apertura midió 5.296 presentaciones del host frente a 5.351
+actualizaciones del juego y sólo entonces cargó `title`. La pista contiene
+fotogramas numerados hasta 1.343, por lo que terminar en 1.341 coincide con el
+límite de la tabla original y ya no con el temporizador adelantado.
 
 No se fuerza permanentemente el modo gráfico. En la prueba, las capturas pasaron a `rgb24=False` al cargar el título y volvieron a `rgb24=True` cuando comenzó la cinemática de la partida nueva.
 
