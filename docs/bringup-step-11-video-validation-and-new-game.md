@@ -70,16 +70,25 @@ cuando sólo se había mostrado el cuadro 712. Esto explica tanto el corte abrup
 como la falta de tiempo para completar el fundido del logo.
 
 La causa estaba en dos fuentes para la misma interrupción: el reloj interno de
-`Interrupts` ya genera VBlank a 60 Hz y `Runtime.PresentFrame()` añadía otro
-`Interrupts.Raise(0)` manual. El parche
-`runtime-patches/0002-avoid-duplicate-vblank.patch` elimina esa segunda fuente.
+`Interrupts` genera VBlank a 60 Hz y `Runtime.PresentFrame()` también encola
+IRQ0. El primer arreglo experimental retiró la segunda fuente globalmente. Eso
+permitió completar la película, pero durante el título la interrupción quedaba
+ligada a puntos de sondeo irregulares del código generado y la animación avanzaba
+a tirones.
 
-Después del cambio, una ejecución sin entrada produjo 113 cuadros para el logo
-en 7,42 segundos y los 1.341 cuadros previstos para la apertura en 89,38
-segundos. La apertura midió 5.296 presentaciones del host frente a 5.351
-actualizaciones del juego y sólo entonces cargó `title`. La pista contiene
-fotogramas numerados hasta 1.343, por lo que terminar en 1.341 coincide con el
-límite de la tabla original y ya no con el temporizador adelantado.
+La versión final de `runtime-patches/0002-avoid-duplicate-vblank.patch` añade el
+modo optativo `PresentDrivenVBlank`. Mega Man 8 lo activa desde su adaptación de
+`VSync`: el reloj monotónico sigue gobernando `VBlankCount` y las esperas a 60
+Hz, pero sólo la presentación encola IRQ0. Así el callback ocurre una vez y en un
+punto estable de cada cuadro, sin modificar el comportamiento predeterminado de
+otros ports.
+
+Una ejecución completa midió una relación exacta: 402 presentaciones frente a
+402 callbacks durante el logo y 5.300 frente a 5.300 durante la apertura. La
+película llegó al título y éste continuó normalmente hasta cargar el primer modo
+de demostración. La pista contiene fotogramas numerados hasta 1.343, por lo que
+terminar en el límite de 1.341 coincide con la tabla original y ya no con el
+temporizador adelantado.
 
 Una segunda ejecución con capturas confirmó además el fundido del logo: entre
 las presentaciones 240 y 360 el fondo progresa de gris oscuro a gris claro antes

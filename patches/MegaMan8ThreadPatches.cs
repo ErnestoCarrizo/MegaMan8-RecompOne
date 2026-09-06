@@ -73,6 +73,11 @@ internal static class MegaMan8ThreadPatches
 
     private static void PresentFrameWithThrottledCd(CpuContext c, IMemory m)
     {
+        // Mega Man 8 calls VSync once per visible update. Couple IRQ0 to that
+        // presentation so its frame callback runs once, at a stable point,
+        // instead of also being raised by the runtime's polling clock.
+        RecompOne.Runtime.Interrupts.PresentDrivenVBlank = true;
+
         // LibCd.Tick normally drains as many as 400,000 ready callbacks in one
         // frame. MM8 has a bounded producer/consumer queue: once it fills, its
         // task must run before another sector arrives. Temporarily detach the
