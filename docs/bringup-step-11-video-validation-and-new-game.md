@@ -31,6 +31,21 @@ Las películas trabajan en RGB24, mientras que el título y las fases usan el fr
 2. reaplica el `DISPENV` correspondiente al buffer que esté activo;
 3. mantiene esa corrección durante los primeros 120 cuadros del título o de una demo/fase, sin impedir que una película posterior vuelva legítimamente a RGB24.
 
+La comprobación visual en una GeForce GTX 1050 Ti reveló además que los cuadros
+MDEC escritos desde la tarea cooperativa actualizaban la sombra de VRAM de CPU,
+pero no la textura OpenGL del backend acelerado: esa tarea no posee el contexto
+gráfico de la ventana. Mientras la GPU está en RGB24, el parche desactiva
+temporalmente la presentación HLE para que la ventana lea directamente la VRAM de
+CPU. Al regresar a RGB15 reactiva el backend acelerado. Con este cambio se ven
+correctamente tanto el logo de Capcom como la película de apertura.
+
+Una ejecución sin entrada midió 311 sincronizaciones para la primera película y
+2.841 para la segunda. El reproductor alcanzó el límite de 1.341 fotogramas que
+la tabla original asigna a la apertura; no hubo botones retenidos ni recién
+pulsados. La pista contiene fotogramas numerados hasta 1.343, por lo que la salida
+en 1.341 y la carga inmediata de `title` son una decisión del juego original, no
+un salto introducido por la recompilación.
+
 No se fuerza permanentemente el modo gráfico. En la prueba, las capturas pasaron a `rgb24=False` al cargar el título y volvieron a `rgb24=True` cuando comenzó la cinemática de la partida nueva.
 
 ## Piloto de entrada automática

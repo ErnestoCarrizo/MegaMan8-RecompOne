@@ -1,4 +1,5 @@
 using RecompOne.Runtime.Events;
+using RecompOne.Runtime.Hle;
 using RecompOne.Runtime.Memory;
 using RecompOne.Runtime.Sdk;
 
@@ -13,6 +14,7 @@ internal static class MegaMan8DisplayModePatches
     ];
 
     private static int _guardFrames;
+    private static bool _softwareVideoPresentation;
 
     public static void Enable()
     {
@@ -29,6 +31,8 @@ internal static class MegaMan8DisplayModePatches
         foreach (var env in DispEnvironments)
             e.Memory.WriteU8(env + 0x11u, 0);
 
+        RestoreAcceleratedPresentation();
+
         // Las películas STR dejan la GPU en RGB24. Los overlays vuelven a usar
         // el framebuffer normal de 320x240 y 15 bits.
         RestoreCurrentEnvironment(e.Context, e.Memory);
@@ -38,6 +42,7 @@ internal static class MegaMan8DisplayModePatches
 
     private static void OnVSync(VSyncEvent e)
     {
+        UpdateVideoPresentation();
         if (_guardFrames <= 0) return;
         _guardFrames--;
         RestoreCurrentEnvironment(e.Context, e.Memory);
@@ -60,5 +65,35 @@ internal static class MegaMan8DisplayModePatches
         context.A0 = displayEnvironment;
         LibGpu.PutDispEnv(context, memory);
         context.Restore(snapshot);
+    }
+
+    private static void UpdateVideoPresentation()
+    {
+        var gpu = RecompOne.Runtime.Runtime.Gpu;
+        if (gpu is null) return;
+
+        if (gpu.Display24Bit)
+        {
+            if (_softwareVideoPresentation) return;
+
+            // Los cuadros MDEC se cargan desde una tarea cooperativa que no
+            // posee el contexto OpenGL. La VRAM de CPU sí queda actualizada;
+            // desactivar HLE durante RGB24 hace que la ventana presente esa
+            // copia directamente en lugar de una textura acelerada obsoleta.
+            GpuHle.Active = false;
+            _softwareVideoPresentation = true;
+            Console.WriteLine("[MM8.Video] presentación RGB24 cambiada a VRAM de CPU");
+            return;
+        }
+
+        RestoreAcceleratedPresentation();
+    }
+
+    private static void RestoreAcceleratedPresentation()
+    {
+        if (!_softwareVideoPresentation) return;
+        GpuHle.Active = GpuHle.Backend?.Ready == true;
+        _softwareVideoPresentation = false;
+        Console.WriteLine("[MM8.Video] renderizador acelerado restaurado para RGB15");
     }
 }
