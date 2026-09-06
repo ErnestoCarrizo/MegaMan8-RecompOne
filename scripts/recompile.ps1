@@ -35,6 +35,22 @@ try {
     )
 
     Write-Host "[2/2] Regenerando el código de Mega Man 8..."
+    $resolvedGeneratedDirectory = [System.IO.Path]::GetFullPath($generatedDirectory)
+    $resolvedProjectRoot = [System.IO.Path]::GetFullPath($projectRoot).TrimEnd(
+        [System.IO.Path]::DirectorySeparatorChar,
+        [System.IO.Path]::AltDirectorySeparatorChar)
+    $expectedPrefix = $resolvedProjectRoot + [System.IO.Path]::DirectorySeparatorChar
+    if (-not $resolvedGeneratedDirectory.StartsWith(
+            $expectedPrefix,
+            [System.StringComparison]::OrdinalIgnoreCase)) {
+        throw "La carpeta generated resuelta queda fuera del proyecto: $resolvedGeneratedDirectory"
+    }
+
+    if (Test-Path -LiteralPath $resolvedGeneratedDirectory -PathType Container) {
+        Get-ChildItem -LiteralPath $resolvedGeneratedDirectory -File -Filter "*.cs" |
+            Remove-Item -Force
+    }
+
     Invoke-DotNet -Arguments @(
         "run",
         "--project", $recompilerProject,

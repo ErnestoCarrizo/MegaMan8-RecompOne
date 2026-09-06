@@ -8,7 +8,68 @@
   "funcMap": "funcmaps/main.json",
   "addressComments": true,
   "disasmComments": true,
-  "overlays": [],
+  "overlays": [
+    {
+      "name": "title",
+      "base": "801D8000",
+      "lba": 126122,
+      "size": 18432,
+      "linearSweep": true,
+      "pointerScan": true,
+      "functions": [
+        {
+          "address": "0x801D80A8",
+          "name": "TitleOverlayEntry_MM8"
+        }
+      ]
+    },
+    {
+      "name": "demo_stage_1",
+      "base": "801D8000",
+      "lba": 126131,
+      "size": 45056,
+      "linearSweep": true,
+      "pointerScan": true,
+      "functions": [
+        {
+          "address": "0x801D81B4",
+          "name": "DemoStage1Entry_MM8"
+        },
+        {
+          "address": "0x801DC84C",
+          "name": "DemoStage1PostBoss_MM8"
+        }
+      ]
+    },
+    {
+      "name": "demo_stage_2",
+      "base": "801D8000",
+      "lba": 126153,
+      "size": 63488,
+      "linearSweep": true,
+      "pointerScan": true,
+      "functions": [
+        {
+          "address": "0x801D802C",
+          "name": "DemoStage2Entry_MM8"
+        }
+      ]
+    },
+    {
+      "name": "demo_stage_3",
+      "base": "801D8000",
+      "lba": 126184,
+      "size": 69632,
+      "linearSweep": true,
+      "pointerScan": true,
+      "functions": [
+        {
+          "address": "0x801D8054",
+          "name": "DemoStage3Entry_MM8"
+        }
+      ]
+    }
+  ],
   "patches": [
     {
       "overlay": "main",
@@ -24,6 +85,26 @@
       "overlay": "main",
       "address": "0x800FC1E0",
       "target": "MegaMan8Recomp.Patches.MegaMan8CdPatches.PollCdLoader"
+    },
+    {
+      "overlay": "main",
+      "address": "0x800D66B4",
+      "target": "MegaMan8Recomp.Patches.MegaMan8ThreadPatches.OpenThread"
+    },
+    {
+      "overlay": "main",
+      "address": "0x800D66C4",
+      "target": "MegaMan8Recomp.Patches.MegaMan8ThreadPatches.CloseThread"
+    },
+    {
+      "overlay": "main",
+      "address": "0x800D66D4",
+      "target": "MegaMan8Recomp.Patches.MegaMan8ThreadPatches.ChangeThread"
+    },
+    {
+      "overlay": "main",
+      "address": "0x800CDF08",
+      "target": "MegaMan8Recomp.Patches.MegaMan8ThreadPatches.VSync"
     }
   ]
 }
