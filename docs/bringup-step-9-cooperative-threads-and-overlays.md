@@ -68,7 +68,7 @@ Las advertencias `CS0162` provienen de ramas inaccesibles en código generado y 
 ## Validación final
 
 - Recompilación: 2.857 funciones totales; 1.876 del ejecutable principal, 100 del título, 238 de la primera demo, 339 de la segunda y 304 de la tercera.
-- Sustituciones: siete parches propios y 13 reimplementaciones HLE automáticas.
+- Sustituciones en este paso: siete parches propios y 13 reimplementaciones HLE automáticas. El paso 10 eleva luego las HLE a 21 al identificar `libcd` streaming.
 - Compilación .NET 10: cero errores; 286 advertencias `CS0162` en código generado.
 - Ejecución larga: primera y segunda demos completas, con retorno al título; la tercera se detectó por su llamada inicial y su contenido se verificó contra 34 sectores del BIN.
 - Arranque final: el dispatcher volvió a reconocer `main` y `title` después del renombrado de overlays.
@@ -76,4 +76,4 @@ Las advertencias `CS0162` provienen de ramas inaccesibles en código generado y 
 
 ## Próximo paso recomendado
 
-La siguiente prueba debe iniciar una partida de forma manual y registrar qué overlay carga el selector de fase. En paralelo conviene añadir un reloj de presentación basado en la frecuencia NTSC de PS1 para eliminar la aceleración sin cambiar el número de `VSync` que observa el juego. A partir de ahí, el mismo procedimiento de captura, coincidencia con el BIN y declaración de overlay puede repetirse fase por fase.
+El paso siguiente debe restaurar primero las películas STR que preceden al título y medir el reloj real antes de modificar la velocidad. Después conviene iniciar una partida de forma manual y registrar qué overlay carga el selector de fase. A partir de ahí, el mismo procedimiento de captura, coincidencia con el BIN y declaración de overlay puede repetirse fase por fase.

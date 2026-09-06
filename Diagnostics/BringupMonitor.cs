@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using RecompOne.Runtime.Dispatch;
 using RecompOne.Runtime.Events;
 using RecompOne.Runtime.Memory;
@@ -45,12 +46,17 @@ internal static class BringupMonitor
     private static readonly Dictionary<uint, uint> LastValues = [];
     private static readonly Dictionary<uint, uint> LastCodeHashes = [];
     private static readonly HashSet<uint> VSyncCallers = [];
+    private static readonly Stopwatch WallClock = new();
     private static bool _enabled;
+    private static long _firstObservedFrame = -1;
+    private static long _lastPulseFrame = -1;
+    private static double _lastPulseSeconds;
 
     public static void Enable()
     {
         if (_enabled) return;
         _enabled = true;
+        WallClock.Restart();
 
         Event.AddListener<VSyncEvent>(OnVSync);
         Event.AddListener<OverlayLoadedEvent>(OnOverlayLoaded);
@@ -64,6 +70,9 @@ internal static class BringupMonitor
 
     private static void OnVSync(VSyncEvent e)
     {
+        if (_firstObservedFrame < 0)
+            _firstObservedFrame = e.Frame;
+
         var caller = e.Context.RA;
         if (VSyncCallers.Add(caller))
             Console.WriteLine($"[Bringup] nuevo llamador de VSync: 0x{caller:X8} (frame {e.Frame})");
@@ -105,8 +114,17 @@ internal static class BringupMonitor
         if (e.Frame % 60 == 0)
         {
             var overlays = string.Join(',', Dispatcher.ActiveNames);
+            var seconds = WallClock.Elapsed.TotalSeconds;
+            var observedFrames = e.Frame - _firstObservedFrame + 1;
+            var averageFps = seconds > 0 ? observedFrames / seconds : 0;
+            var intervalSeconds = seconds - _lastPulseSeconds;
+            var intervalFrames = _lastPulseFrame < 0 ? observedFrames : e.Frame - _lastPulseFrame;
+            var intervalFps = intervalSeconds > 0 ? intervalFrames / intervalSeconds : 0;
+            _lastPulseFrame = e.Frame;
+            _lastPulseSeconds = seconds;
             Console.WriteLine(
-                $"[Bringup] pulso frame {e.Frame}: caller=0x{caller:X8} overlays=[{overlays}]");
+                $"[Bringup] pulso frame {e.Frame}: host={seconds:F2}s fps={intervalFps:F2} avg={averageFps:F2} " +
+                $"caller=0x{caller:X8} overlays=[{overlays}]");
         }
     }
 

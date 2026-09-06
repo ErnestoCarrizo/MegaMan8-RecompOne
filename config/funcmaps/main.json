@@ -1032,7 +1032,7 @@
     },
     {
       "address": "0x800CEBF4",
-      "name": "func_800CEBF4",
+      "name": "StSetRing",
       "size": 48
     },
     {
@@ -1267,12 +1267,12 @@
     },
     {
       "address": "0x800D123C",
-      "name": "func_800D123C",
+      "name": "StClearRing",
       "size": 96
     },
     {
       "address": "0x800D129C",
-      "name": "func_800D129C",
+      "name": "StUnSetRing",
       "size": 88
     },
     {
@@ -1282,17 +1282,17 @@
     },
     {
       "address": "0x800D1384",
-      "name": "func_800D1384",
+      "name": "StGetBackloc",
       "size": 96
     },
     {
       "address": "0x800D13E4",
-      "name": "func_800D13E4",
+      "name": "StSetStream",
       "size": 136
     },
     {
       "address": "0x800D146C",
-      "name": "func_800D146C",
+      "name": "StFreeRing",
       "size": 188
     },
     {
@@ -1302,12 +1302,12 @@
     },
     {
       "address": "0x800D1568",
-      "name": "func_800D1568",
+      "name": "StGetNext",
       "size": 196
     },
     {
       "address": "0x800D162C",
-      "name": "func_800D162C",
+      "name": "StSetMask",
       "size": 32
     },
     {
